@@ -1,4 +1,4 @@
-package com.felipetadeu.currencyconversion.controller;
+package com.felipetadeu.currencyconversion.java.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -3,12 +3,17 @@ package com.felipetadeu.currencyconversion.jgrapht.service;
 import com.felipetadeu.currencyconversion.common.model.exception.NoPathException;
 import com.felipetadeu.currencyconversion.common.model.exception.UnexpectedException;
 import com.felipetadeu.currencyconversion.common.util.CurrencyUtil;
+import com.felipetadeu.currencyconversion.jgrapht.mapper.ExchangeRatePairMapper;
+import com.felipetadeu.currencyconversion.jgrapht.model.dto.ExchangeRatePairDto;
 import lombok.extern.slf4j.Slf4j;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.springframework.stereotype.Service;
 
+import javax.money.CurrencyUnit;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -16,9 +21,13 @@ public class CurrencyConversionJGraphTService {
 
     private final JGraphTService jGraphTService;
 
-    private CurrencyConversionJGraphTService(JGraphTService jGraphTService) {
+    private final ExchangeRatePairMapper exchangeRatePairMapper;
+
+    private CurrencyConversionJGraphTService(JGraphTService jGraphTService,
+                                             ExchangeRatePairMapper exchangeRatePairMapper) {
 
         this.jGraphTService = jGraphTService;
+        this.exchangeRatePairMapper = exchangeRatePairMapper;
 
         loadDataForTests();
     }
@@ -80,5 +89,13 @@ public class CurrencyConversionJGraphTService {
         log.info("#### -> calculating the final amount");
 
         return amountToConvert.multiply(exchangeValue);
+    }
+
+    public Set<String> getAllCurrencies() {
+        return jGraphTService.getAllCurrencies().stream().map(CurrencyUnit::getCurrencyCode).collect(Collectors.toSet());
+    }
+
+    public Set<ExchangeRatePairDto> getAllExchangeRatePairs() {
+        return exchangeRatePairMapper.toDto(this.jGraphTService.getExchangeRatePairs());
     }
 }

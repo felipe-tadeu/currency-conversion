@@ -26,7 +26,7 @@ public class CurrencyConversionJGraphTController {
                 inputCurrency, outputCurrency, amountToConvert);
         var startExecution = System.currentTimeMillis();
         var convertedValue = this.service.convertCurrencyValue(inputCurrency, outputCurrency, amountToConvert);
-        var response = new ResponseDto(convertedValue.toString());
+        var response = new ResponseDto(convertedValue.toPlainString());
         var endExecution = System.currentTimeMillis();
         log.info("#### -> ending execution -> duration: {} milliseconds", endExecution - startExecution);
         return response;

@@ -11,7 +11,7 @@ Application to convert an amount from one currency to another.
 ## Commands
 
 1. Run the command `mvn clean compile package`
-2. Move to `target` directory and run the command `java -jar target\currency-conversion-0.0.1-SNAPSHOT.jar`
+2. Move to `target` directory and run the command `java -jar currency-conversion-0.0.1-SNAPSHOT.jar`
 
 ## Testing if application is running
 

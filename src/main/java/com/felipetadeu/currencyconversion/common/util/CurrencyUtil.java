@@ -5,6 +5,7 @@ import com.felipetadeu.currencyconversion.common.model.exception.InvalidParamExc
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class CurrencyUtil {
 
@@ -29,6 +30,6 @@ public class CurrencyUtil {
             throw new InvalidParamException(
                     String.format("Invalid param: %s. You may have passed a param more than once", amountString));
 
-        return new BigDecimal(amountString);
+        return new BigDecimal(amountString).setScale(5, RoundingMode.HALF_UP).stripTrailingZeros();
     }
 }

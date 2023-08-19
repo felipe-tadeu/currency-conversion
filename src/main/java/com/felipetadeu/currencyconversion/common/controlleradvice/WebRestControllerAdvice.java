@@ -1,4 +1,4 @@
-package com.felipetadeu.currencyconversion.common.config;
+package com.felipetadeu.currencyconversion.common.controlleradvice;
 
 import com.felipetadeu.currencyconversion.common.model.dto.WebErrorDto;
 import com.felipetadeu.currencyconversion.common.model.exception.InvalidParamException;

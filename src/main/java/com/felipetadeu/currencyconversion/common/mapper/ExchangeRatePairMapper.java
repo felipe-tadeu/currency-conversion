@@ -1,7 +1,7 @@
-package com.felipetadeu.currencyconversion.jgrapht.mapper;
+package com.felipetadeu.currencyconversion.common.mapper;
 
-import com.felipetadeu.currencyconversion.jgrapht.model.ExchangeRatePair;
-import com.felipetadeu.currencyconversion.jgrapht.model.dto.ExchangeRatePairDto;
+import com.felipetadeu.currencyconversion.common.model.ExchangeRatePair;
+import com.felipetadeu.currencyconversion.common.model.dto.ExchangeRatePairDto;
 import org.mapstruct.Mapper;
 
 import javax.money.CurrencyUnit;

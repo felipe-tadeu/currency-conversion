@@ -1,14 +1,12 @@
 package com.felipetadeu.currencyconversion.jgrapht.controller;
 
 import com.felipetadeu.currencyconversion.common.model.dto.ResponseDto;
-import com.felipetadeu.currencyconversion.jgrapht.model.dto.ExchangeRatePairDto;
+import com.felipetadeu.currencyconversion.common.model.dto.ExchangeRatePairDto;
 import com.felipetadeu.currencyconversion.jgrapht.service.CurrencyConversionJGraphTService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.Set;
 
 @Slf4j
@@ -21,13 +19,17 @@ public class CurrencyConversionJGraphTController {
     private final CurrencyConversionJGraphTService service;
 
     @GetMapping("/jgrapht")
-    public ResponseDto convertJGraphT(@Validated @RequestParam String input, @RequestParam String output, @RequestParam String exchange) {
-        log.info("#### -> starting execution with params -> {input: {}, output: {}, exchange: {}}", input, output, exchange);
+    public ResponseDto convertJGraphT(@RequestParam String inputCurrency,
+                                      @RequestParam String outputCurrency,
+                                      @RequestParam String amountToConvert) {
+        log.info("#### -> starting execution with params -> {inputCurrency: {}, outputCurrency: {}, amountToConvert: {}}",
+                inputCurrency, outputCurrency, amountToConvert);
         var startExecution = System.currentTimeMillis();
-        var returnAmount = this.service.convertCurrencyValue(input, output, exchange);
+        var convertedValue = this.service.convertCurrencyValue(inputCurrency, outputCurrency, amountToConvert);
+        var response = new ResponseDto(convertedValue.toString());
         var endExecution = System.currentTimeMillis();
         log.info("#### -> ending execution -> duration: {} milliseconds", endExecution - startExecution);
-        return new ResponseDto(200, returnAmount.toString(), new Timestamp(endExecution));
+        return response;
     }
 
     @GetMapping("/jgrapht/currencies")

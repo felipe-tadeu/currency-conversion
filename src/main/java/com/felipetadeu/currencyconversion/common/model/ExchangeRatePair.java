@@ -1,4 +1,4 @@
-package com.felipetadeu.currencyconversion.jgrapht.model;
+package com.felipetadeu.currencyconversion.common.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

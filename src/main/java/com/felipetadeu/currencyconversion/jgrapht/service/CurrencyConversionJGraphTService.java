@@ -1,16 +1,17 @@
 package com.felipetadeu.currencyconversion.jgrapht.service;
 
+import com.felipetadeu.currencyconversion.common.mapper.ExchangeRatePairMapper;
+import com.felipetadeu.currencyconversion.common.model.dto.ExchangeRatePairDto;
 import com.felipetadeu.currencyconversion.common.model.exception.NoPathException;
 import com.felipetadeu.currencyconversion.common.model.exception.UnexpectedException;
 import com.felipetadeu.currencyconversion.common.util.CurrencyUtil;
-import com.felipetadeu.currencyconversion.jgrapht.mapper.ExchangeRatePairMapper;
-import com.felipetadeu.currencyconversion.jgrapht.model.dto.ExchangeRatePairDto;
 import lombok.extern.slf4j.Slf4j;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.springframework.stereotype.Service;
 
 import javax.money.CurrencyUnit;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -88,7 +89,7 @@ public class CurrencyConversionJGraphTService {
 
         log.info("#### -> calculating the final amount");
 
-        return amountToConvert.multiply(exchangeValue);
+        return amountToConvert.multiply(exchangeValue).setScale(5, RoundingMode.HALF_UP).stripTrailingZeros();
     }
 
     public Set<String> getAllCurrencies() {
